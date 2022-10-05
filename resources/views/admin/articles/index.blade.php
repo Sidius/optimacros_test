@@ -41,8 +41,8 @@
                                         <tr>
                                             <td>{{ $article->id }}</td>
                                             <td>{{ $article->title }}</td>
-                                            <td>{{ $article->content }}</td>
-                                            <td><img src="{{ $article->image }}" alt="{{ $article->title }}" style="width: 30em;"></td>
+                                            <td>{!! $article->content !!}</td>
+                                            <td><img src="{{ $article->getImage() }}" alt="{{ $article->title }}" style="width: 30em;"></td>
                                             <td style="width: 7em;">
                                                 <a href="{{ route('admin.articles.edit', ['article' => $article->id]) }}" class="btn btn-info btn-sm float-left mr-1">
                                                     <i class="fas fa-pencil-alt"></i>
