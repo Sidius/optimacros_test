@@ -19,7 +19,8 @@ class ArticleFactory extends Factory
         return [
             'title' => $this->faker->words(1, true),
             'content' => $this->faker->text(500),
-            'image' => $this->faker->image('public/storage/articles/images'),
+            'image' => 'https://catherineasquithgallery.com/uploads/posts/2021-03/1615815699_17-p-stilnii-fon-25.jpg',
+//            'image' => $this->faker->image(public_path('storage\images'), 640, 480, null, false),
         ];
     }
 }
