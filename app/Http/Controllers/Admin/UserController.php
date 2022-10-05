@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\LoginRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -85,15 +87,27 @@ class UserController extends Controller
 
     public function loginPage()
     {
-
-
         return view('admin.users.login');
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
+        $request->validated();
 
+        $login = Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
 
-        return redirect()->route('admin.index');
+        if ($login) {
+            return redirect()->route('admin.index')->with('success', 'WELCOME');
+        }
+
+        return redirect()->back()->with('error', 'Wrong email and/or password');
+    }
+
+    public function logout()
+    {
+        return view('admin.users.login');
     }
 }
