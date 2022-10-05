@@ -21,7 +21,7 @@
 
                 @include('admin.layouts.message')
 
-                <form action="{{ route('users.login') }}" method="post">
+                <form action="{{ route('admin.login') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="email" name="email" class="form-control" placeholder="Почта"

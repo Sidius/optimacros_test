@@ -21,6 +21,9 @@ Route::prefix('/admin')->name('admin.')->group(function () {
             Route::get('/login', 'loginPage')->name('.page');
             Route::post('/login', 'login');
         });
+        Route::middleware('auth')->name('users.')->group(function () {
+            Route::get('/logout', 'logout')->name('logout');
+        });
     });
 });
 

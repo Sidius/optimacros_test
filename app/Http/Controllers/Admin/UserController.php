@@ -85,11 +85,15 @@ class UserController extends Controller
 
     public function loginPage()
     {
-        //
+
+
+        return view('admin.users.login');
     }
 
-    public function login()
+    public function login(Request $request)
     {
-        //
+
+
+        return redirect()->route('admin.index');
     }
 }
