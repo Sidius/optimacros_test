@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\MainController::class, 'index']);
 Route::prefix('/admin')->name('admin.')->group(function () {
-    Route::get('/', [MainController::class, 'index'])->name('index');
-    Route::resource('/articles', ArticleController::class);
+    Route::middleware('auth')->group(function () {
+        Route::get('/', [MainController::class, 'index'])->name('index');
+        Route::resource('/articles', ArticleController::class);
+    });
     Route::controller(UserController::class)->group(function () {
         Route::middleware('guest')->name('login')->group(function () {
             Route::get('/login', 'loginPage')->name('.page');
