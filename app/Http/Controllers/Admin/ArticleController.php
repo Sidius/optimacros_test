@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Article\CreateArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -25,22 +27,30 @@ class ArticleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        return view('admin.articles.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateArticleRequest $request)
     {
-        //
+        $request->validated();
+
+        $data = $request->all();
+
+        $data['image'] = Article::uploadImage($request);
+
+        Article::query()->create($data);
+
+        return redirect()->route('admin.articles.index')->with('success', 'Article has been created');
     }
 
     /**
@@ -81,10 +91,14 @@ class ArticleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $article = Article::query()->find($id);
+        Storage::delete($article->image);
+        $article->delete();
+
+        return redirect()->route('admin.articles.index')->with('success', 'Article has been deleted');
     }
 }
