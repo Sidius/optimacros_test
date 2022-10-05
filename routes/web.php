@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\MainController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\MainController::class, 'index']);
 Route::prefix('/admin')->name('admin.')->group(function () {
-    Route::get('/', [\App\Http\Controllers\Admin\MainController::class, 'index'])->name('index');
-    Route::controller(\App\Http\Controllers\Admin\UserController::class)->group(function () {
+    Route::get('/', [MainController::class, 'index'])->name('index');
+    Route::resource('/articles', ArticleController::class);
+    Route::controller(UserController::class)->group(function () {
         Route::middleware('guest')->name('login')->group(function () {
             Route::get('/login', 'loginPage')->name('.page');
             Route::post('/login', 'login');
