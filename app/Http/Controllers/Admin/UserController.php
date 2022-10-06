@@ -99,6 +99,11 @@ class UserController extends Controller
             'password' => $request->password,
         ]);
 
+        if (Auth::user() && !Auth::user()->is_admin) {
+            Auth::logout();
+            return redirect()->back()->with('error', 'You are not admin');
+        }
+
         if ($login) {
             return redirect()->route('admin.index')->with('success', 'WELCOME');
         }
@@ -108,6 +113,7 @@ class UserController extends Controller
 
     public function logout()
     {
-        return view('admin.users.login');
+        Auth::logout();
+        return redirect()->route('admin.login');
     }
 }
