@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'Markedia - Marketing Blog Template :: Home')
+@section('title', 'Optimacros :: Home')
 
 {{--@section('header')--}}
 
