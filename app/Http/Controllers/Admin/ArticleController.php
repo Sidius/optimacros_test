@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\CreateArticleRequest;
+use App\Http\Requests\Article\EditArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -68,23 +69,42 @@ class ArticleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
-        //
+        $title = 'Edit article';
+        $article = Article::query()->findOrFail($id);
+
+        if ($article) {
+            return view('admin.articles.edit', compact('title', 'article'));
+        }
+        abort(404, 'Not found');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param EditArticleRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(EditArticleRequest $request, $id)
     {
-        //
+        $request->validated();
+
+        $article = Article::query()->findOrFail($id);
+        $data = $request->all();
+
+        $image = Article::uploadImage($request, $article->image);
+
+        if ($image) {
+            $data['image'] = $image;
+        }
+
+        $article->update($data);
+
+        return redirect()->route('admin.articles.index')->with('success', 'Save');
     }
 
     /**
