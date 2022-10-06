@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class Article extends Model
@@ -32,5 +33,10 @@ class Article extends Model
         }
 
         return asset("public/storage/{$this->image}");
+    }
+
+    public function getArticleDate()
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('d F, Y');
     }
 }
