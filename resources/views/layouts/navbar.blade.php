@@ -8,22 +8,12 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">Home</a>
+                        <a class="nav-link" href="{{ route('home') }}">Main page</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('categories.single', ['slug' => 'marketing']) }}">Marketing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('categories.single', ['slug' => 'make-money']) }}">Make Money</a>
+                        <a class="nav-link" href="{{ route('articles.index') }}">Articles catalog</a>
                     </li>
                 </ul>
-
-                <form class="form-inline" action="{{ route('search') }}" method="get">
-                    <input name="s"
-                           class="form-control mr-sm-2 @error('s') is-invalid @enderror"
-                           type="text" placeholder="How may I help?" required>
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
 
                 <style>
                     .market-header .form-inline .form-control.is-invalid {

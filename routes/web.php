@@ -16,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\MainController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\MainController::class, 'index'])->name('home');
+Route::prefix('/articles')->name('articles.')->controller(\App\Http\Controllers\Article\ArticleController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{id}', 'single')->name('single');
+});
 Route::prefix('/admin')->name('admin.')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/', [MainController::class, 'index'])->name('index');
