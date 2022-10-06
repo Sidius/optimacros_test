@@ -22,7 +22,7 @@ class Article extends Model
             $folder = date('Y-m-d');
             return $request->file('image')->store("{$folder}");
         }
-        return null;
+        return $image;
     }
 
     public function getImage()

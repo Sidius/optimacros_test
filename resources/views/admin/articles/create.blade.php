@@ -44,16 +44,13 @@
                                             <input type="file" class="custom-file-input" id="image" name="image">
                                             <label class="custom-file-label" for="image">Choose file</label>
                                         </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">Upload</span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Сохранить</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
                     </div>
