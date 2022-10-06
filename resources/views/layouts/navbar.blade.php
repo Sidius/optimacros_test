@@ -7,10 +7,10 @@
             <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('public/assets/front/images/version/market-logo.png') }}" alt=""></a>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
+                    <li class="nav-item @isset($main_nav) active @endisset">
                         <a class="nav-link" href="{{ route('home') }}">Main page</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @isset($article_nav) active @endisset">
                         <a class="nav-link" href="{{ route('articles.index') }}">Articles catalog</a>
                     </li>
                 </ul>

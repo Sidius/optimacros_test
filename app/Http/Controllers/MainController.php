@@ -10,8 +10,9 @@ class MainController extends Controller
 {
     public function index()
     {
+        $main_nav = true;
         $articles = Article::query()->orderBy('created_at', 'desc')->limit(6)->get();
 
-        return view('index', compact('articles'));
+        return view('index', compact('articles', 'main_nav'));
     }
 }
